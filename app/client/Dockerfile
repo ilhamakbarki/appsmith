@@ -10,7 +10,6 @@ COPY . .
 
 RUN yarn install
 
-ENV APPSMITH_SERVER_PROXY_PASS="http://appsmith-internal-server:8080"
 EXPOSE 3000
 
 CMD [ "yarn", "run", "start" ]

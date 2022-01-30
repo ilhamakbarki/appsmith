@@ -3,6 +3,7 @@ version: "3.7"
 services:
   appsmith-internal-client:
     build: ./app/client/
+    env_file: .env
     ports:
       - "8081:3000"
     networks:
