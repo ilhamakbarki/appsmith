@@ -1,19 +1,16 @@
-FROM nginx:1.20-alpine
+FROM node:14
 
-COPY ./build /var/www/appsmith
+USER root
+RUN npm i -g npx
+RUN npm i -g yarn
 
-EXPOSE 80
+WORKDIR /app
+
+COPY . .
+
+RUN yarn install
 
 ENV APPSMITH_SERVER_PROXY_PASS="http://appsmith-internal-server:8080"
+EXPOSE 3000
 
-# This is the default nginx template file inside the container.
-# This is replaced by the install.sh script during a deployment
-# COPY ./docker/templates/nginx-app.conf.template /nginx.conf.template
-COPY ./docker/templates/nginx-root.conf.template /nginx-root.conf.template
-
-COPY ./docker/templates/nginx-app-http.conf.template /nginx-app-http.conf.template
-COPY ./docker/templates/nginx-app-https.conf.template /nginx-app-https.conf.template
-
-# This is the script that is used to start Nginx when the Docker container starts
-COPY ./docker/start-nginx.sh /start-nginx.sh
-CMD ["/start-nginx.sh"]
+CMD [ "yarn", "run", "start" ]
