@@ -13,7 +13,7 @@ RUN yarn build
 
 FROM nginx:1.20-alpine
 
-COPY --from=builder ./build /var/www/appsmith
+COPY --from=builder ./app/build /var/www/appsmith
 
 EXPOSE 80
 
