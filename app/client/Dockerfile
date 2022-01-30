@@ -1,22 +1,12 @@
-FROM node:14 as builder
-
-USER root
-
-WORKDIR /app
-
-COPY . .
-
-RUN yarn install
-
-RUN yarn build
-
-
 FROM nginx:1.20-alpine
 
-COPY --from=builder ./app/build /var/www/appsmith
+COPY ./build /var/www/appsmith
 
 EXPOSE 80
 
+# This is the default nginx template file inside the container.
+# This is replaced by the install.sh script during a deployment
+# COPY ./docker/templates/nginx-app.conf.template /nginx.conf.template
 COPY ./docker/templates/nginx-root.conf.template /nginx-root.conf.template
 
 COPY ./docker/templates/nginx-app-http.conf.template /nginx-app-http.conf.template
