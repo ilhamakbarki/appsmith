@@ -1,7 +1,7 @@
 FROM node:14
 
 USER root
-RUN npm i -g npx
+
 RUN npm i -g yarn
 
 WORKDIR /app
