@@ -148,9 +148,10 @@ export function AppViewerHeader(props: AppViewerHeaderProps) {
   const userPermissions = currentApplicationDetails?.userPermissions ?? [];
   const permissionRequired = PERMISSION_TYPE.MANAGE_APPLICATION;
   const canEdit = isPermitted(userPermissions, permissionRequired);
-  const { search } = useLocation();
-  const queryParams = new URLSearchParams(search);
-  const isEmbed = queryParams.get("embed");
+  //const { search } = useLocation();
+  //const queryParams = new URLSearchParams(search);
+  //const isEmbed = queryParams.get("embed");
+  const isEmbed = true;
   const hideHeader = !!isEmbed;
   const applicationId = useSelector(getCurrentApplicationId);
   const pageId = useSelector(getCurrentPageId);
@@ -192,7 +193,7 @@ export function AppViewerHeader(props: AppViewerHeaderProps) {
       <HeaderWrapper hasPages={pages.length > 1}>
         <HtmlTitle />
         <HeaderRow className="px-3" justify={"space-between"}>
-          <HeaderSection className="space-x-3 justify-start">
+          <HeaderSection className="justify-start space-x-3">
             <div>
               <PrimaryLogoLink to={APPLICATIONS_URL}>
                 <AppsmithLogoImg />
@@ -204,7 +205,7 @@ export function AppViewerHeader(props: AppViewerHeaderProps) {
               </div>
             )}
           </HeaderSection>
-          <HeaderSection className="current-app-name justify-center">
+          <HeaderSection className="justify-center current-app-name">
             {currentApplicationDetails && (
               <Text type={TextType.H4}>{currentApplicationDetails.name}</Text>
             )}
