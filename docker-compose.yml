@@ -2,16 +2,18 @@ version: "3.7"
 
 services:
   appsmith-internal-client:
+    restart: always
     build: ./app/client/
     env_file: .env
     ports:
-      - "8081:3000"
+      - "8081:80"
     networks:
       - appsmith
     depends_on:
       - appsmith-internal-server
     
   appsmith-internal-server:
+    restart: always
     image: appsmith/appsmith-server:release
     env_file: .env
     environment:
@@ -28,6 +30,7 @@ services:
       - /root/appsmith_data/git-storage:/data/git-storage
 
   mongo:
+    restart: always
     image: mongo
     environment:
       - MONGO_INITDB_DATABASE=appsmith
